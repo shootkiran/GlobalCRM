@@ -2,7 +2,9 @@ version: "3.8"
 
 services:
   app:
-    image: shootkiran/laravel:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     container_name: laravel12_app
     ports:
       - "8500:80"
