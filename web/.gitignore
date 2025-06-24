@@ -1,0 +1,3 @@
+/node_modules
+supervisord.pid
+supervisord.log
