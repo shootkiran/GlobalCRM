@@ -5724,7 +5724,7 @@ namespace App\Models {
      * @property int $stock_item_id
      * @property int $purchase_id
      * @property int $id
-     * @property-read \App\Models\StockItem $stock
+     * @property-read \App\Models\StockItem $stock_item
      * @method static \Illuminate\Database\Eloquent\Builder<PurchaseItem>|PurchaseItem whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PurchaseItem>|PurchaseItem wherePurchaseId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<PurchaseItem>|PurchaseItem whereStockItemId($value)

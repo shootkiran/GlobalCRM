@@ -44,7 +44,7 @@ class PurchaseForm
                             ->label('Item')
                             // ->searchable() //there is bug of showing somewhere else
                             ->required()
-                            ->relationship('stock', 'name'),
+                            ->relationship('stock_item', 'name'),
                         TextInput::make('quantity')
                             ->numeric()
                             ->default(1)
