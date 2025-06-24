@@ -27,5 +27,5 @@ COPY docker/supervisor.conf /etc/supervisor/supervisor.conf
 # Set working directory
 WORKDIR /var/www/html
 
-# Default command
-CMD ["apache2-foreground"]
+# Start Supervisor as main process (it manages apache2 and other workers)
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]
