@@ -1,21 +1,14 @@
-services: 
+version: "3.8"
+
+services:
   app:
-    image: "shootkiran/mims:app"
-    container_name: "mims-app"
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: laravel12_app
     ports:
-      - "${APP_PORT:-80}:80"
+      - "8000:80"
     volumes:
-      - "./:/var/www/html"
-    restart: always
-    networks:
-       - mims-network
-    logging:
-      driver: json-file
-      options: 
-        max-file: "1"
-        max-size: "10k"
-networks:
-  mims-network:
-     driver: bridge
-volumes:
-  redis_data:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    restart: unless-stopped
