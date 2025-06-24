@@ -9,8 +9,9 @@ RUN apt-get update && apt-get install -y \
     supervisor \
     sqlite3 \
     libsqlite3-dev \
-    && docker-php-ext-install pdo pdo_sqlite
-RUN docker-php-ext-install intl
+    libicu-dev \
+    g++ \
+    && docker-php-ext-install intl pdo pdo_sqlite
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
