@@ -7,7 +7,7 @@ services:
       dockerfile: docker/Dockerfile
     container_name: laravel12_app
     ports:
-      - "8000:80"
+      - "8500:80"
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html
