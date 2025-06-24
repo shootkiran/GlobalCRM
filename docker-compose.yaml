@@ -8,8 +8,8 @@ services:
     image: shootkiran/laravel
     # platform: linux/amd64
     # container_name: laravel12_app
-    ports:
-       - "8600:80"
+#    ports:
+#       - "8600:80"
     volumes:
       - ./web:/var/www/html
     # working_dir: /var/www/html
