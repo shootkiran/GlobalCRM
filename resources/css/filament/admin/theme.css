@@ -1,0 +1,82 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+
+.fi-ta-row {
+    @apply text-xs;
+}
+
+@layer base {
+
+    /* Make everything globally small */
+    html {
+        @apply text-xs;
+        /* Tailwind's smallest base size */
+    }
+}
+
+@layer components {
+
+    /* Make tables compact */
+    .fi-ta-table {
+        @apply text-sm leading-tight;
+    }
+
+    .fi-ta-table thead th {
+        @apply py-1 px-2;
+    }
+
+    .fi-ta-table tbody td {
+        @apply py-1 px-2;
+    }
+
+    /* Compact sidebar */
+    .fi-sidebar-nav ul li {
+        @apply my-0.5;
+        /* Smaller vertical gap between items */
+    }
+
+    .fi-sidebar {
+        @apply bg-green-100;
+        /* Light green sidebar */
+    }
+
+
+    .fi-btn,
+    .fi-input,
+    .fi-select,
+    .fi-ta-table {
+        @apply text-xs;
+    }
+
+    .fi-ta-table thead th,
+    .fi-ta-table tbody td {
+        @apply py-1 px-2 text-xs;
+    }
+
+    .fi-sidebar-nav ul li {
+        @apply text-xs leading-snug;
+    }
+
+    .fi-form label {
+        @apply text-xs;
+    }
+
+    .fi-header-heading,
+    .fi-section-heading,
+    .fi-card-header {
+        @apply text-sm;
+        /* Slightly larger for headings */
+    }
+
+    .fi-main.fi-width-7xl {
+        @apply max-w-full px-4;
+        /* or any custom width and padding you want */
+    }
+
+    .fi-sidebar {
+        @apply bg-green-100 rounded-r-4xl shadow-md;
+    }
+}
