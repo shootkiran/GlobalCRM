@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     g++ \
     tzdata \
+    iputils-ping \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
     && docker-php-ext-install intl pdo pdo_sqlite

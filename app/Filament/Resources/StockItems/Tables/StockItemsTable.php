@@ -31,6 +31,9 @@ class StockItemsTable
                 TextColumn::make('minimum_stock')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('current_stock')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
