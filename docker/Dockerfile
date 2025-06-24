@@ -1,5 +1,8 @@
 FROM php:8.3-apache
 
+# Set environment variable for timezone
+ENV TZ=Asia/Kathmandu
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libzip-dev \
@@ -11,7 +14,11 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
     libicu-dev \
     g++ \
+    tzdata \
+    && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone \
     && docker-php-ext-install intl pdo pdo_sqlite
+
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
@@ -29,5 +36,6 @@ COPY docker/supervisor.conf /etc/supervisor/supervisor.conf
 WORKDIR /var/www/html
 
 EXPOSE 80
+
 # Start Supervisor as main process (it manages apache2 and other workers)
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisor.conf"]

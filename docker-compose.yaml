@@ -2,12 +2,13 @@ version: "3.8"
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: docker/Dockerfile
+    image: shootkiran/laravel
     container_name: laravel12_app
     ports:
-      - "8500:80"
+      - "8600:80"
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html
