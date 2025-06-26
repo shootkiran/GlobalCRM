@@ -33,10 +33,10 @@ class PurchaseForm
                     ->relationship()
                     ->reorderable(true)
                     ->table([
-                        TableColumn::make('stock_item_id'),
-                        TableColumn::make('quantity'),
-                        TableColumn::make('unit_cost'),
-                        TableColumn::make('total_cost'),
+                        TableColumn::make('Item'),
+                        TableColumn::make('Quantity'),
+                        TableColumn::make('Unit Cost'),
+                        TableColumn::make('Sub Total'),
                     ])
                     ->schema([
 

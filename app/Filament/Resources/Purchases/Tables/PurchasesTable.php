@@ -15,8 +15,7 @@ class PurchasesTable
     {
         return $table
             ->columns([
-                TextColumn::make('vendor_id')
-                    ->numeric()
+                TextColumn::make('vendor.name')
                     ->sortable(),
                 TextColumn::make('date')
                     ->date()

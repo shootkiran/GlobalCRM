@@ -27,10 +27,10 @@ class PurchaseResource extends Resource
         return PurchaseForm::configure($schema);
     }
 
-    public static function infolist(Schema $schema): Schema
-    {
-        return PurchaseInfolist::configure($schema);
-    }
+    // public static function infolist(Schema $schema): Schema
+    // {
+    //     return PurchaseInfolist::configure($schema);
+    // }
 
     public static function table(Table $table): Table
     {

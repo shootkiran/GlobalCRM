@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\StockItems\Tables;
+namespace App\Filament\Resources\StockMovements\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -9,31 +9,23 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class StockItemsTable
+class StockMovementsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable()
-                    ->color(fn($record)=>$record->current_stock<$record->minimum_stock?'danger':'')
-                    ->description(fn($record)=>$record->current_stock<$record->minimum_stock?'Stock Low':''),
-                TextColumn::make('sku')
-                    ->label('SKU')
+                TextColumn::make('stockItem.name')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('quantity')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('type')
                     ->searchable(),
-                TextColumn::make('unit')
+                TextColumn::make('related_type')
                     ->searchable(),
-                TextColumn::make('cost_price')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('selling_price')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('minimum_stock')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('current_stock')
+                TextColumn::make('related_id')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
