@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('telegram_chats', function (Blueprint $table) {
-            $table->id();
+          
 
-            $table->bigInteger('chat_id')->unique();
-            $table->string('type'); // 'private', 'group', 'supergroup', 'channel'
-            $table->string('title')->nullable();
-            $table->string('username')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->timestamps();
+             $table->id();
+
+    $table->bigInteger('chat_id'); // foreign key to telegrams.chat_id or actual Telegram chat
+    $table->text('message')->nullable(); // message text
+    $table->bigInteger('message_id')->nullable();
+    $table->json('payload')->nullable(); // full Telegram payload for debugging/logging
+    $table->timestamp('message_date')->nullable();
+
+    $table->timestamps();
         });
     }
 

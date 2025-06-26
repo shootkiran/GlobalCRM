@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use App\Models\Location;
+use App\Models\Nvr;
 use App\Models\Service;
 use App\Models\StockItem;
 use App\Models\User;
@@ -23,6 +24,12 @@ class DatabaseSeeder extends Seeder
         ], [
             'name' => "MeroSoft Nepal",
             'password' => Hash::make('nayapati@12#'),
+        ]);
+        User::firstOrCreate([
+            'email' => 'sanjay@sanjay.com'
+        ], [
+            'name' => "Sanjay",
+            'password' => Hash::make('sanjay@sanjay.com'),
         ]);
         Location::firstOrCreate([
             'name' => "Location Name First"
@@ -47,6 +54,16 @@ class DatabaseSeeder extends Seeder
         ], [
             'email' => 'kiran@test.com',
             'location_id' => Location::first()->id,
+        ]);
+        $nvr = Nvr::firstOrCreate([
+            'ip' => '192.168.10.200',], [
+            'name' => 'BARDAGHAT-CCTV CAMERA-POLICE',
+            'location' => 'BARDAGHAT',
+        ]);
+        $nvr->cameras()->firstOrCreate([
+            'ip' => '192.168.10.189',], [
+            'name' => 'Pach Kune 01',
+            'location' => 'Pach Kune 01',
         ]);
     }
 }

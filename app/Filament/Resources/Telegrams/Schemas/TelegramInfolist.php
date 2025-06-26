@@ -12,7 +12,13 @@ class TelegramInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('chat_id'),
+                TextEntry::make('chat_id')
+                    ->numeric(),
+                TextEntry::make('type'),
+                TextEntry::make('title'),
+                TextEntry::make('username'),
+                TextEntry::make('first_name'),
+                TextEntry::make('last_name'),
                 TextEntry::make('user_id')
                     ->numeric(),
                 IconEntry::make('active')

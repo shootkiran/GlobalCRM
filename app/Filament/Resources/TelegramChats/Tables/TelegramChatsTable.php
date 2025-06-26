@@ -18,18 +18,11 @@ class TelegramChatsTable
                 TextColumn::make('chat_id')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('type')
-                    ->searchable(),
-                TextColumn::make('title')
-                    ->searchable(),
-                TextColumn::make('username')
-                    ->searchable(),
-                TextColumn::make('first_name')
-                    ->searchable(),
-                TextColumn::make('last_name')
-                    ->searchable(),
-                TextColumn::make('user_id')
+                TextColumn::make('message_id')
                     ->numeric()
+                    ->sortable(),
+                TextColumn::make('message_date')
+                    ->dateTime()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

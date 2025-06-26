@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\TelegramChats\Schemas;
 
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 
 class TelegramChatForm
@@ -14,14 +16,13 @@ class TelegramChatForm
                 TextInput::make('chat_id')
                     ->required()
                     ->numeric(),
-                TextInput::make('type')
-                    ->required(),
-                TextInput::make('title'),
-                TextInput::make('username'),
-                TextInput::make('first_name'),
-                TextInput::make('last_name'),
-                TextInput::make('user_id')
+                Textarea::make('message')
+                    ->columnSpanFull(),
+                TextInput::make('message_id')
                     ->numeric(),
+                Textarea::make('payload')
+                    ->columnSpanFull(),
+                DateTimePicker::make('message_date'),
             ]);
     }
 }

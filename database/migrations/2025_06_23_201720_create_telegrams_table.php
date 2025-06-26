@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('telegrams', function (Blueprint $table) {
             $table->id();
-            $table->string('chat_id');
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->bigInteger('chat_id')->unique();
+            $table->string('type')->default('private'); // 'private', 'group', 'supergroup', 'channel'
+            $table->string('title')->nullable();
+            $table->string('username')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('active')->default(false);
             $table->timestamps();
         });

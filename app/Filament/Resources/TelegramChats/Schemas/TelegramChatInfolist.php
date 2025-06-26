@@ -13,13 +13,10 @@ class TelegramChatInfolist
             ->components([
                 TextEntry::make('chat_id')
                     ->numeric(),
-                TextEntry::make('type'),
-                TextEntry::make('title'),
-                TextEntry::make('username'),
-                TextEntry::make('first_name'),
-                TextEntry::make('last_name'),
-                TextEntry::make('user_id')
+                TextEntry::make('message_id')
                     ->numeric(),
+                TextEntry::make('message_date')
+                    ->dateTime(),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')

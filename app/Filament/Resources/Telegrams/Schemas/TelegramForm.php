@@ -13,7 +13,15 @@ class TelegramForm
         return $schema
             ->components([
                 TextInput::make('chat_id')
-                    ->required(),
+                    ->required()
+                    ->numeric(),
+                TextInput::make('type')
+                    ->required()
+                    ->default('private'),
+                TextInput::make('title'),
+                TextInput::make('username'),
+                TextInput::make('first_name'),
+                TextInput::make('last_name'),
                 TextInput::make('user_id')
                     ->numeric(),
                 Toggle::make('active')
