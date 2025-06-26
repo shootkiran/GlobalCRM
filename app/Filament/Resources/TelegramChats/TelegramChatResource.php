@@ -10,6 +10,7 @@ use App\Filament\Resources\TelegramChats\Schemas\TelegramChatForm;
 use App\Filament\Resources\TelegramChats\Schemas\TelegramChatInfolist;
 use App\Filament\Resources\TelegramChats\Tables\TelegramChatsTable;
 use App\Models\TelegramChat;
+use UnitEnum;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -18,9 +19,12 @@ use Filament\Tables\Table;
 
 class TelegramChatResource extends Resource
 {
-    protected static ?string $model = TelegramChat::class;
+    protected static ?string $model = TelegramChat::class;   
+     protected static ?string $modelLabel = "Incoming Telegram Chat";
+
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | UnitEnum | null $navigationGroup = "System";
 
     public static function form(Schema $schema): Schema
     {

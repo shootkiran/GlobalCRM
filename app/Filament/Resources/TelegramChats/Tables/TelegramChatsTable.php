@@ -16,10 +16,11 @@ class TelegramChatsTable
         return $table
             ->columns([
                 TextColumn::make('chat_id')
-                    ->numeric()
                     ->sortable(),
                 TextColumn::make('message_id')
                     ->numeric()
+                    ->sortable(),
+                TextColumn::make('message')
                     ->sortable(),
                 TextColumn::make('message_date')
                     ->dateTime()

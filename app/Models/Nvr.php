@@ -19,6 +19,14 @@ class Nvr extends Model
     {
         return $this->hasMany(Camera::class);
     }
+    public function telegrams()
+    {
+        return $this->morphToMany(
+            \App\Models\Telegram::class,
+            'notifiable',
+            'notification_receivers'
+        );
+    }
     public function pingCheck()
     {
         $ip = $this->ip;
@@ -26,11 +34,18 @@ class Nvr extends Model
         $process->run();
         if ($process->isSuccessful()) {
             if (! $this->reachable) {
+                $message = "✅ NVR UP: \n
+{$this->name} ({$this->ip}) is now rechable.";
+                $this->telegrams->each(fn ($telegram) => $telegram->sendMessage("{$message}"));
                 $this->monitor_histories()->create(['log' => "{$ip} is reachable", 'state' => "UP"]);
             }
             return true;
         } else {
             if ($this->reachable) {
+                $message = "❌ NVR DOWN: \n
+{$this->name} ({$this->ip}) is NOT rechable. Please Check Soon!!!.";
+                $this->telegrams->each(fn ($telegram) => $telegram->sendMessage("{$message}"));
+
                 $this->monitor_histories()->create(['log' => "{$ip} is NOT reachable", 'state' => "DOWN"]);
             }
             return false;

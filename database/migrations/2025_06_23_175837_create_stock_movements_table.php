@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('stock_item_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity'); // positive for IN, negative for OUT
+            $table->foreignId('godown_id')->constrained()->onDelete('cascade'); // 📦 track location
+            $table->decimal('quantity', 10, 2); // positive for IN, negative for OUT
             $table->enum('type', ['purchase', 'sale', 'adjustment']);
             $table->morphs('related'); // related_type, related_id (invoice/purchase/adjustment)
             $table->text('note')->nullable();
             $table->timestamps();
         });
-    }
+    }   
 
     /**
      * Reverse the migrations.

@@ -15,6 +15,9 @@ class NvrInfolist
             ->components([
                 TextEntry::make('name'),
                 TextEntry::make('ip'),
+                TextEntry::make('lat')
+                ->label('Gps')
+                ->formatStateUsing(fn ($record) => $record->lat.",".$record->lng),
                 TextEntry::make('location'),
                 TextEntry::make('customer.name')
                     ->label('Customer')

@@ -11,6 +11,7 @@ use App\Filament\Resources\Invoices\Schemas\InvoiceInfolist;
 use App\Filament\Resources\Invoices\Tables\InvoicesTable;
 use App\Models\Invoice;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -19,8 +20,10 @@ use Filament\Tables\Table;
 class InvoiceResource extends Resource
 {
     protected static ?string $model = Invoice::class;
+    protected static ?string $modelLabel = "Sales Invoice";
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = "Sales";
 
     public static function form(Schema $schema): Schema
     {

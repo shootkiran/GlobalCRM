@@ -1,9 +1,21 @@
-version: "3.8"
-
 services:
-  app:
-    image: shootkiran/laravel
-    ports:
-      - "8600:80"
+  global:
+    user: 0:0
+    image: "shootkiran/mims:app"
+    container_name: "global-crm"
     volumes:
-      - ./:/var/www/html
+      - "/usr/bin/docker:/usr/bin/docker"
+      # - "./mims-apache.conf:/etc/apache2/sites-enabled/mims-apache.conf:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./:/var/www/html"
+      - "/root/.ssh:/root/.ssh"
+      # - "/root/.ssh:/var/www/html/.ssh"
+    ports:
+      - "8443:443"
+    restart: always
+    logging:
+      driver: json-file
+      options: 
+        max-file: "1"
+        max-size: "10k"
+  

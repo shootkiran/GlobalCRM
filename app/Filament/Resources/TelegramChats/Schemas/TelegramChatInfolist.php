@@ -21,6 +21,10 @@ class TelegramChatInfolist
                     ->dateTime(),
                 TextEntry::make('updated_at')
                     ->dateTime(),
+                TextEntry::make('message'),
+                TextEntry::make('payload')
+                    ->label('Payload')
+                    ->formatStateUsing(fn ($state) => json_encode($state, JSON_PRETTY_PRINT))
             ]);
     }
 }

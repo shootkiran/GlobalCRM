@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('unit')->default('pcs'); // e.g., pcs, kg
             $table->decimal('cost_price', 10, 2);
             $table->decimal('selling_price', 10, 2);
-            $table->integer('minimum_stock')->default(0);
+            $table->decimal('minimum_stock',10,2)->default(0);
             $table->timestamps();
         });
     }

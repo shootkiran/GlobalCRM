@@ -16,10 +16,9 @@ return new class extends Migration
             $table->foreignId('quotation_id')->constrained()->onDelete('cascade');
             $table->nullableMorphs('item'); // item_id, item_type: StockItem or Service
             $table->string('description');
-            $table->integer('quantity');
+            $table->decimal('quantity',10,2);
             $table->decimal('unit_price', 10, 2);
             $table->decimal('total_price', 10, 2);
-
             $table->timestamps();
         });
     }

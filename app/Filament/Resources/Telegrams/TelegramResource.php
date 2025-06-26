@@ -11,6 +11,7 @@ use App\Filament\Resources\Telegrams\Schemas\TelegramInfolist;
 use App\Filament\Resources\Telegrams\Tables\TelegramsTable;
 use App\Models\Telegram;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,6 +22,7 @@ class TelegramResource extends Resource
     protected static ?string $model = Telegram::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | UnitEnum | null $navigationGroup = "System";
 
     public static function form(Schema $schema): Schema
     {

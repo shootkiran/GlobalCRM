@@ -11,6 +11,7 @@ use App\Filament\Resources\Vendors\Schemas\VendorInfolist;
 use App\Filament\Resources\Vendors\Tables\VendorsTable;
 use App\Models\Vendor;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,6 +22,7 @@ class VendorResource extends Resource
     protected static ?string $model = Vendor::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = "Purchase";
 
     public static function form(Schema $schema): Schema
     {

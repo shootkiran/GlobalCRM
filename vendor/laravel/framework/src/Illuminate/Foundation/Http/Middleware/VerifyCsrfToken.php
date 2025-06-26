@@ -39,7 +39,9 @@ class VerifyCsrfToken
      *
      * @var array<int, string>
      */
-    protected $except = [];
+    protected $except = [
+        '/telegram/webhook',
+    ];
 
     /**
      * The globally ignored URIs that should be excluded from CSRF verification.
@@ -136,8 +138,8 @@ class VerifyCsrfToken
         $token = $this->getTokenFromRequest($request);
 
         return is_string($request->session()->token()) &&
-               is_string($token) &&
-               hash_equals($request->session()->token(), $token);
+            is_string($token) &&
+            hash_equals($request->session()->token(), $token);
     }
 
     /**

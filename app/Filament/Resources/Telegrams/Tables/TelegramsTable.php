@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources\Telegrams\Tables;
 
+use App\Models\Telegram;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -17,7 +20,6 @@ class TelegramsTable
         return $table
             ->columns([
                 TextColumn::make('chat_id')
-                    ->numeric()
                     ->sortable(),
                 TextColumn::make('type')
                     ->searchable(),
@@ -29,7 +31,7 @@ class TelegramsTable
                     ->searchable(),
                 TextColumn::make('last_name')
                     ->searchable(),
-                TextColumn::make('user_id')
+                TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('active')
@@ -49,6 +51,13 @@ class TelegramsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                Action::make('Test')->action(fn (Telegram $record) => $record->sendMessage('Testing....')),
+                Action::make('Assign To User')
+                    ->schema([
+                        Select::make('user_id')
+                            ->relationship('user', 'name')
+                    ])
+                    ->action(fn (Telegram $record,array $data) => $record->update(['user_id'=>$data['user_id']]))
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

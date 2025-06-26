@@ -14,4 +14,10 @@ class StockItem extends Model
     {
         return $this->stock_movements->sum('quantity') ?? 0;
     }
+    public function godowns()
+    {
+        return $this->belongsToMany(Godown::class)
+            ->withPivot('quantity')
+            ->withTimestamps();
+    }
 }

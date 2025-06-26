@@ -18,4 +18,22 @@ class EditNvr extends EditRecord
             DeleteAction::make(),
         ];
     }
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        if ($data['lat'] && $data['lng']) {
+            $data['gps'] = $data['lat'].",".$data['lng'];
+        }
+        return $data;
+    }
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $lat = null;
+        $lng = null;
+        list($lat, $lng) = explode(',', $data['gps']);
+        $data['lat'] = $lat;
+        $data['lng'] = $lng;
+        unset($data['gps']);
+        return $data;
+    }
+
 }
