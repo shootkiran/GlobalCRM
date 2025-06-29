@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Invoice;
+use App\Observers\InvoiceObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
+            $table->foreignId('godown_id')->nullable()->constrained()->onDelete('cascade');
             $table->morphs('itemable');
             $table->string('description')->nullable();
             $table->decimal('quantity',10,2);

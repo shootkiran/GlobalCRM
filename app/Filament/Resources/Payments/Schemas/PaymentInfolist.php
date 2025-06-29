@@ -13,13 +13,12 @@ class PaymentInfolist
             ->components([
                 TextEntry::make('customer.name')
                     ->numeric(),
-                TextEntry::make('invoice.id')
-                    ->numeric(),
+                TextEntry::make('receive_ledger.name')
+                    ->label('Payment Received In'),
                 TextEntry::make('date')
                     ->date(),
                 TextEntry::make('amount')
                     ->numeric(),
-                TextEntry::make('method'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')

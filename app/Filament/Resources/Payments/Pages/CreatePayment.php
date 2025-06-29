@@ -8,4 +8,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePayment extends CreateRecord
 {
     protected static string $resource = PaymentResource::class;
+    public function afterCreate()
+    {
+        $this->record->generateJournals();
+    }
 }

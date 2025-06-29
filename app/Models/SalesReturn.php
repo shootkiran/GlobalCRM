@@ -27,4 +27,9 @@ class SalesReturn extends Model
     {
         return $this->hasMany(SalesReturnItem::class);
     }
+    
+    public function journal()
+    {
+        return $this->morphOne(Journal::class, 'journalable');
+    }
 }

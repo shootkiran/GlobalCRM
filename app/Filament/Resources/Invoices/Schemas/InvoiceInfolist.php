@@ -21,8 +21,7 @@ class InvoiceInfolist
                 TextEntry::make('status')
                     ->badge(),
 
-                TextEntry::make('total_amount')
-                    ->money('USD'),
+                TextEntry::make('total_amount'),
 
                 TextEntry::make('created_at')
                     ->dateTime(),
@@ -40,11 +39,9 @@ class InvoiceInfolist
                         TextEntry::make('quantity')
                             ->numeric(),
 
-                        TextEntry::make('unit_price')
-                            ->money('USD'),
+                        TextEntry::make('unit_price'),
 
-                        TextEntry::make('total_price')
-                            ->money('USD'),
+                        TextEntry::make('total_price'),
                     ])
                     ->columnSpanFull(),
             ]);

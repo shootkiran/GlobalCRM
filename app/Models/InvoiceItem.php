@@ -19,12 +19,17 @@ class InvoiceItem extends Model
     {
         return $this->morphOne(StockMovement::class, 'related');
     }
+    public function godown()
+    {
+        return $this->belongsTo(Godown::class);
+    }
     protected static function booted(): void
     {
         static::created(function (InvoiceItem $item) {
             if ($item->itemable_type === StockItem::class) {
                 $item->stock_movement()->create([
                     'stock_item_id' => $item->itemable_id,
+                    'godown_id' => $item->godown_id,
                     'quantity' => $item->quantity * -1,
                     'type' => 'sale',
                     'note' => 'Auto-created from InvoiceItem',
@@ -39,6 +44,8 @@ class InvoiceItem extends Model
             if ($wasStockItem && $isNowStockItem) {
                 // Still a StockItem — just update
                 $item->stock_movement()->update([
+                    'godown_id' => $item->godown_id,
+
                     'stock_item_id' => $item->itemable_id,
                     'quantity' => $item->quantity * -1,
                 ]);
@@ -49,6 +56,7 @@ class InvoiceItem extends Model
                 // Changed from something else → StockItem — create movement
                 $item->stock_movement()->create([
                     'stock_item_id' => $item->itemable_id,
+                    'godown_id' => $item->godown_id,
                     'quantity' => $item->quantity * -1,
                     'type' => 'sale',
                     'note' => 'Auto-created after type change to StockItem',

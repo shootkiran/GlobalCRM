@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('ledger_classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Account name, e.g. Cash, Bank A/C
-            $table->string('type')->default('cash'); // Account type
-            $table->string('reference')->nullable(); // Optional account number or reference
-            $table->decimal('balance', 15, 2)->default(0); // Current balance
+            $table->string(column: 'name');
+            $table->enum('type', ['Asset', 'Liability', 'Equity', 'Income', 'Expense']);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('ledger_classes');
     }
 };

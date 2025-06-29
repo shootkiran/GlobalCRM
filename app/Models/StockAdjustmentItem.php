@@ -13,6 +13,7 @@ class StockAdjustmentItem extends Model
     protected $fillable = [
         'stock_adjustment_id',
         'stock_item_id',
+        'godown_id',
         'quantity',
         'notes',
     ];
@@ -21,12 +22,17 @@ class StockAdjustmentItem extends Model
     {
         return $this->morphOne(StockMovement::class, 'related');
     }
+    public function godown()
+    {
+        return $this->belongsTo(Godown::class);
+    }
     protected static function booted(): void
     {
         static::created(function (StockAdjustmentItem $item) {
             $item->stock_movement()->create([
                 'stock_item_id' => $item->stock_item_id,
                 'quantity' => $item->quantity,
+                'godown_id' => $item->godown_id,
                 'type' => 'adjustment',
                 'note' => 'Auto-created from StockAdjustmentItem',
             ]);
@@ -36,6 +42,7 @@ class StockAdjustmentItem extends Model
             if ($item->wasChanged(['quantity', 'stock_item_id'])) {
                 $item->stock_movement()->update([
                     'stock_item_id' => $item->stock_item_id,
+                    'godown_id' => $item->godown_id,
                     'quantity' => $item->quantity,
                 ]);
             }

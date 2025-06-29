@@ -11,6 +11,7 @@ use App\Filament\Resources\Quotations\Schemas\QuotationInfolist;
 use App\Filament\Resources\Quotations\Tables\QuotationsTable;
 use App\Models\Quotation;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,6 +22,7 @@ class QuotationResource extends Resource
     protected static ?string $model = Quotation::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = "Sales";
 
     public static function form(Schema $schema): Schema
     {

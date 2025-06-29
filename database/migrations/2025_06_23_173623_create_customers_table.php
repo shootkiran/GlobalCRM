@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('balance')->default(0);
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->foreignId('ledger_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

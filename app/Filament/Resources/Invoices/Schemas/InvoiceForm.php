@@ -2,15 +2,24 @@
 
 namespace App\Filament\Resources\Invoices\Schemas;
 
-use App\InvoiceStatus;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Repeater\TableColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
+use App\Models\Ledger;
 use Filament\Forms;
+use App\AccountType;
+use App\InvoiceStatus;
+use App\Models\Godown;
+use App\Models\Service;
+use App\Models\StockItem;
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Repeater\TableColumn;
 
 class InvoiceForm
 {
@@ -46,19 +55,21 @@ class InvoiceForm
                     ->relationship()
                     ->reorderable(true)
                     ->table([
-                        TableColumn::make('itemable_type'),
-                        TableColumn::make('itemable_id'),
+                        TableColumn::make('Item Type'),
+                        TableColumn::make('Item'),
+
                         TableColumn::make('quantity'),
-                        TableColumn::make('unit_price'),
-                        TableColumn::make('total_price'),
+                        TableColumn::make('Unit Price'),
+                        TableColumn::make('Sub Total'),
                     ])
                     ->schema([
                         Select::make('itemable_type')
                             ->label('Item Type')
                             ->options([
-                                \App\Models\StockItem::class => 'Product',
-                                \App\Models\Service::class => 'Service',
+                                StockItem::class => 'Product',
+                                Service::class => 'Service',
                             ])
+                            ->afterStateUpdated(fn ($state, $set) => $state == StockItem::class ? $set('godown_id', Godown::first()?->id) : $set('godown_id', null))
                             ->required()
                             ->live(),
 
@@ -79,6 +90,7 @@ class InvoiceForm
                                 return [];
                             })
                             ->visible(fn (callable $get) => filled($get('itemable_type'))),
+                        Hidden::make('godown_id'),
 
                         TextInput::make('quantity')
                             ->numeric()
@@ -115,7 +127,33 @@ class InvoiceForm
                     ->defaultItems(1)
                     // ->columns(4)
                     ->columnSpanFull(),
-                TextInput::make('total_amount')->default(0)
+                TextInput::make('total_amount')->default(0),
+                Toggle::make('payment_received')
+                    ->label('Payment Received')
+                    ->live(),
+
+                Section::make([
+                    Select::make('receive_ledger_id')
+                        ->label('Received In')
+                        ->options(function (callable $get) {
+                            return Ledger::where('cash_bank', true)->pluck('name', 'id');
+                        })
+                        ->default(fn () => Ledger::where('default_account', true)->first()?->id)
+                        ->required(),
+
+
+                    Textarea::make('payment_note')
+                        ->label('Payment Note')
+                        ->rows(2),
+
+                    TextInput::make('payment_amount')
+                        ->label('Amount')
+                        ->numeric()
+                        ->default(fn (callable $get) => $get('total_amount')),
+                ])
+                    ->visible(fn (callable $get) => $get('payment_received') === true)
+                    ->columns(2)
+                    ->columnSpanFull()
             ]);
     }
 }

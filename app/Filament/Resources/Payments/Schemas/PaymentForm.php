@@ -2,7 +2,8 @@
 
 namespace App\Filament\Resources\Payments\Schemas;
 
-use App\Models\Invoice;
+use App\AccountType;
+use App\Models\Ledger;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -17,29 +18,22 @@ class PaymentForm
             ->components([
                 Select::make('customer_id')
                     ->relationship('customer', 'name')
-                    ->required()
-                    ->live(),
-                Select::make('invoice_id')
+                    ->required(),
+
+                Select::make('receive_ledger_id')
+                    ->label('Received In')
+                    ->default(fn () => Ledger::where('type', 'cash')->first()?->id)
                     ->options(function (callable $get) {
-                        $customerId = $get('customer_id');
-
-                        if (! $customerId) {
-                            return [];
-                        }
-
-                        return Invoice::where('customer_id', $customerId)
-                            ->pluck('id', 'id'); // You can customize display
+                        return Ledger::whereCashBank(true)->pluck('name', 'id');
                     })
-                    ->searchable()
-                    ->required()
-                    ->visible(fn (callable $get) => filled($get('customer_id'))),
+                    ->required(),
                 DatePicker::make('date')
-                ->default(now())
+                    ->default(today())
                     ->required(),
                 TextInput::make('amount')
                     ->required()
                     ->numeric(),
-                TextInput::make('method'),
+                // TextInput::make('method'),
                 Textarea::make('note')
                     ->columnSpanFull(),
             ]);

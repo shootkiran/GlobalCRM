@@ -43,7 +43,12 @@ class Customer extends Model
 
     public function payments()
     {
-        return $this->hasManyThrough(Payment::class, Invoice::class);
+        return $this->hasMany(Payment::class);
+    }
+
+    public function ledger()
+    {
+        return $this->belongsTo(Ledger::class);
     }
 
     /*

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('stock_adjustment_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('stock_adjustment_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('godown_id')->constrained()->cascadeOnDelete();
             $table->foreignId('stock_item_id')->constrained()->cascadeOnDelete(); // reference to stock or product
             $table->decimal('quantity',10,2); // can be negative
             $table->text('notes')->nullable(); // optional comment per item

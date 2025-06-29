@@ -8,7 +8,7 @@ enum AccountType: string implements HasLabel
 {
     case Cash = 'cash';
     case Bank = 'bank';
-    case CreditCard = 'credit_card';
+    case Wallet = 'wallet';
     case Other = 'other';
 
     public function getLabel(): string
@@ -16,7 +16,7 @@ enum AccountType: string implements HasLabel
         return match ($this) {
             self::Cash => 'Cash',
             self::Bank => 'Bank Account',
-            self::CreditCard => 'Credit Card',
+            self::Wallet => 'Online Wallet',
             self::Other => 'Other',
         };
     }

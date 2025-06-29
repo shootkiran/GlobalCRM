@@ -18,17 +18,18 @@ class PaymentsTable
                 TextColumn::make('customer.name')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('invoice.id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('account.name')
+                    ->label('Payment Account')
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('date')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('amount')
                     ->numeric()
-                    ->sortable(),
-                TextColumn::make('method')
-                    ->searchable(),
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
